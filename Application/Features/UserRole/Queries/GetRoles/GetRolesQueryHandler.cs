@@ -15,7 +15,10 @@ namespace API.Application.Features.UserRole.Queries.GetRoles
         private readonly ILogger _logger;
 
         // Constructor takes an IDbConnection (which will be configured in dependency injection)
-        public GetRolesQueryHandler(IDbConnection dbConnection, IMapper mapper, ILogger<GetRolesQueryHandler> logger)
+        public GetRolesQueryHandler(
+            IDbConnection dbConnection, 
+            IMapper mapper, 
+            ILogger<GetRolesQueryHandler> logger)
         {
             _dbConnection = dbConnection;
             _mapper = mapper;
@@ -29,7 +32,7 @@ namespace API.Application.Features.UserRole.Queries.GetRoles
 
             try
             {
-                var validationResult = await validator.ValidateAsync(request, cancellationToken);
+                var validationResult = await validator.ValidateAsync(request, new CancellationToken());
                 if (validationResult.Errors.Count > 0)
                 {
                     getRoleResponse.Success = false;
