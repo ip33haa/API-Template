@@ -1,5 +1,6 @@
 ﻿using API.Application.Features.UserRole;
 using API.Application.Features.UserRole.Commands.Create;
+using API.Application.Features.UserRole.Commands.Update;
 using API.Application.Features.UserRole.Queries.GetRoles;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -24,6 +25,14 @@ namespace Web.API.Controllers
         public async Task<ActionResult<CreateRoleCommandResponse>> CreateRole(RoleDto command)
         {
             var result = await Mediator.Send(new CreateRoleCommand() { Role = command });
+
+            return result;
+        }
+
+        [HttpPut("update-role/{id}")]
+        public async Task<ActionResult<UpdateRoleCommandResponse>> UpdateRole(Guid id, RoleDto command)
+        {
+            var result = await Mediator.Send(new UpdateRoleCommand() { Id = id, RoleUpdate = command });
 
             return result;
         }
